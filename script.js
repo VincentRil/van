@@ -2,14 +2,14 @@
 // SUPABASE
 // =============================
 
-// const SUPABASE_URL = "https://jmbtdfjryeuoabhmecoj.supabase.co";
+const SUPABASE_URL = "https://jmbtdfjryeuoabhmecoj.supabase.co";
 
-// const SUPABASE_KEY = "sb_publishable_z2mPCm9C9t29x8pKr_gmCw_a_CPyPOG";
+const SUPABASE_KEY = "sb_publishable_z2mPCm9C9t29x8pKr_gmCw_a_CPyPOG";
 
-// const supabase = window.supabase.createClient(
-//     SUPABASE_URL,
-//     SUPABASE_KEY
-// );
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 /* ── Floating hearts background ── */
 (function spawnHearts() {
   const HEARTS = ['❤️','💕','💖','💗','💓','🌸','✨'];
