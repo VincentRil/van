@@ -1,11 +1,7 @@
-const SUPABASE_URL = "https://jmbtdfjryeuoabhmecoj.supabase.co";
+// ============================================================
+//  SCRIPT.JS — Do You Love Me?
+// ============================================================
 
-const SUPABASE_KEY = "sb_publishable_z2mPCm9C9t29x8pKr_gmCw_a_CPyPOG";
-
-const supabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
 /* ── Floating hearts background ── */
 (function spawnHearts() {
   const HEARTS = ['❤️','💕','💖','💗','💓','🌸','✨'];
@@ -77,32 +73,11 @@ const supabase = window.supabase.createClient(
 
 
 /* ── Switch to YES page ── */
-async function showYesPage() {
-
-  try {
-
-    const { error } = await supabase
-      .from("answers")
-      .insert([
-        {
-          answer: "yes"
-        }
-      ]);
-
-    if (error) {
-      console.error(error);
-    }
-
-  } catch (err) {
-    console.error(err);
-  }
-
+function showYesPage() {
   document.getElementById('page-main').classList.remove('active');
-
-  document.getElementById('page-yes').classList.add('active');
-
+  const yesPage = document.getElementById('page-yes');
+  yesPage.classList.add('active');
   launchConfetti();
-
 }
 
 /* ── Go back ── */
