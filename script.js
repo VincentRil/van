@@ -1,3 +1,12 @@
+const SUPABASE_URL = "https://jmbtdfjryeuoabhmecoj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_z2mPCm9C9t29x8pKr_gmCw_a_CPyPOG";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
 // ============================================================
 //  SCRIPT.JS — Do You Love Me?
 // ============================================================
@@ -73,11 +82,32 @@
 
 
 /* ── Switch to YES page ── */
-function showYesPage() {
+async function showYesPage() {
+
+  try {
+
+    const { error } = await supabaseClient
+      .from("answers")
+      .insert([
+        {
+          answer: "yes"
+        }
+      ]);
+
+    if (error) {
+      console.error("Supabase:", error);
+    }
+
+  } catch (err) {
+    console.error("Supabase:", err);
+  }
+
   document.getElementById('page-main').classList.remove('active');
-  const yesPage = document.getElementById('page-yes');
-  yesPage.classList.add('active');
+
+  document.getElementById('page-yes').classList.add('active');
+
   launchConfetti();
+
 }
 
 /* ── Go back ── */
