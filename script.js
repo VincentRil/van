@@ -31,53 +31,83 @@ const supabaseClient = window.supabase.createClient(
 
 
 /* ── NO button — runs away from the cursor ── */
-(function setupNoButton() {
-  const btn    = document.getElementById('btn-no');
-  if (!btn) return;
+/* ── NO & NETRAL buttons run away ── */
+(function setupEscapeButtons() {
 
-  const MARGIN = 20; // px from viewport edges
+    const buttons = [
+        document.getElementById("btn-no"),
+        document.getElementById("btn-neutral")
+    ];
 
-  /** Place the button at a random position within the viewport */
-  function moveRandom() {
-    const vw = window.innerWidth  - btn.offsetWidth  - MARGIN * 2;
-    const vh = window.innerHeight - btn.offsetHeight - MARGIN * 2;
-    btn.style.left = (MARGIN + Math.random() * vw) + 'px';
-    btn.style.top  = (MARGIN + Math.random() * vh) + 'px';
-    btn.style.right  = 'auto';
-    btn.style.bottom = 'auto';
-    btn.style.transition = 'left .25s ease, top .25s ease';
-  }
+    buttons.forEach(btn => {
 
-  // Initial position — near bottom-centre (friendly looking start)
-  function setInitial() {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    btn.style.left = (vw / 2 + 60) + 'px';
-    btn.style.top  = (vh * 0.72) + 'px';
-  }
-  setInitial();
+        if (!btn) return;
 
-  /** How close (px) the cursor can get before the button flees */
-  const FLEE_DISTANCE = 90;
+        const MARGIN = 20;
 
-  document.addEventListener('mousemove', function(e) {
-    const rect     = btn.getBoundingClientRect();
-    const cx       = rect.left + rect.width  / 2;
-    const cy       = rect.top  + rect.height / 2;
-    const dx       = e.clientX - cx;
-    const dy       = e.clientY - cy;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+        function moveRandom() {
 
-    if (distance < FLEE_DISTANCE) {
-      moveRandom();
-    }
-  });
+            const vw = window.innerWidth - btn.offsetWidth - MARGIN * 2;
+            const vh = window.innerHeight - btn.offsetHeight - MARGIN * 2;
 
-  // Fallback: also move on click / touchstart so mobile users can't trap it
-  btn.addEventListener('click',      moveRandom);
-  btn.addEventListener('touchstart', moveRandom, { passive: true });
+            btn.style.left = (MARGIN + Math.random() * vw) + "px";
+            btn.style.top = (MARGIN + Math.random() * vh) + "px";
 
-  window.addEventListener('resize', setInitial);
+            btn.style.right = "auto";
+            btn.style.bottom = "auto";
+
+            btn.style.transition = "left .25s ease, top .25s ease";
+        }
+
+        function setInitial() {
+
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            if (btn.id === "btn-no") {
+
+                btn.style.left = (vw / 2 + 80) + "px";
+
+            } else {
+
+                btn.style.left = (vw / 2 - 150) + "px";
+
+            }
+
+            btn.style.top = (vh * 0.72) + "px";
+        }
+
+        setInitial();
+
+        const FLEE_DISTANCE = 90;
+
+        document.addEventListener("mousemove", function (e) {
+
+            const rect = btn.getBoundingClientRect();
+
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < FLEE_DISTANCE) {
+
+                moveRandom();
+
+            }
+
+        });
+
+        btn.addEventListener("click", moveRandom);
+        btn.addEventListener("touchstart", moveRandom, { passive: true });
+
+        window.addEventListener("resize", setInitial);
+
+    });
+
 })();
 
 

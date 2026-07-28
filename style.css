@@ -170,7 +170,8 @@ html, body {
 }
 #btn-yes:active { transform: scale(.97); }
 
-#btn-no {
+#btn-no,
+#btn-neutral {
   font-family: 'Nunito', sans-serif;
   font-size: .85rem;
   font-weight: 600;
